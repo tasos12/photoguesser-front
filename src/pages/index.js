@@ -12,7 +12,7 @@ import { extendedTheme } from '@/components/shared/ExtendedTheme';
 
 export default function Home() {
     // const apiURL = "http://localhost:8080/api/v1";
-    const apiURL = "http://geoguesserapi-env.eba-nrw8maww.eu-central-1.elasticbeanstalk.com/api/v1"
+    const apiURL = "https://photoguesser.eu-central-1.elasticbeanstalk.com/api/v1"
     const [context, setContext] = useState( {
         page: "main",
         room: {}
