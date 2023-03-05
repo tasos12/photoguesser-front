@@ -7,7 +7,6 @@ import { useState } from 'react';
 import StartRoomPage from '@/components/StartRoomPage';
 import GameRoomPage from '@/components/GameRoomPage';
 import ResultsRoomPage from '@/components/ResultsRoomPage';
-import AnimatedPage from '@/components/shared/AnimatedPage';
 import { extendedTheme } from '@/components/shared/ExtendedTheme';
 
 export default function Home() {
@@ -24,46 +23,39 @@ export default function Home() {
 
     let view;
     if(context.page === "create")  {
-        view = 
-                <AnimatedPage>
-                <CreateRoomPage
+        view =  <CreateRoomPage
                     apiURL={apiURL}
                     context={context}
                     setContext={setPageContext}
                 />
-                </AnimatedPage>
     } else if (context.page === "start") {
-        view = <AnimatedPage>
+        view = 
                 <StartRoomPage
                     apiURL={apiURL}
                     context={context}
                     setContext={setPageContext}
                 />
-                </AnimatedPage>
     } else if (context.page === "game") {
-        view = <AnimatedPage>
+        view = 
                 <GameRoomPage
                     apiURL={apiURL}
                     context={context}
                     setContext={setPageContext}
                 />
-                </AnimatedPage>
     } else if (context.page === "results") {
-        view = <AnimatedPage>
+        view = 
                 <ResultsRoomPage
                     apiURL={apiURL}
                     context={context}
                     setContext={setPageContext}
                 />
-                </AnimatedPage>
     } else {
-        view =  <AnimatedPage>
+        view =  
                 <MainPage
                     apiURL={apiURL}
                     context={context}
                     setContext={setPageContext}
                 />
-                </AnimatedPage>
     }
 
     return (
@@ -87,7 +79,7 @@ export default function Home() {
                         width: "100vw", 
                         minWidth: "280px", 
                         maxWidth: "380px",
-                        marginTop: "5vh", 
+                        marginTop: "4vh", 
                     }}>
                         {view}
                     </div>

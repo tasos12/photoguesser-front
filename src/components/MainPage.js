@@ -5,6 +5,7 @@ import Input from "@mui/joy/Input";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import Footer from "./shared/Footer";
+import CircularProgress from "@mui/joy/CircularProgress";
 
 
 export default function MainPage(props) {
@@ -14,6 +15,9 @@ export default function MainPage(props) {
 
     useEffect(() => {
         if(!join) return;
+        
+        setJoin(false);
+        setError(<CircularProgress size="md" />);
         const endpoint = "/rooms/connect?code=" + roomCode;
         fetch(props.apiURL + endpoint, {
             method: "GET",
@@ -21,8 +25,6 @@ export default function MainPage(props) {
                 "Content-Type": "application/json",
             },
         }).then((res) => {
-            setJoin(false);
-            setError("");
             return res.json();
         }).then((res) => {
             if(res.status !== 200) 
@@ -50,7 +52,7 @@ export default function MainPage(props) {
             width="100%"
             sx={{ overflowX: "hidden" }}
         >
-            <Image src="/logo.svg" alt="logo" width={200} height={200}/>
+            <Image src="/logo.svg" alt="logo" width={200} height={160}/>
             <Typography
                 component={"h1"}
                 level="h1"
@@ -91,7 +93,7 @@ export default function MainPage(props) {
             <Typography
                 component={"h4"}
                 level="h4"
-                sx={{ color: "red", fontWeight: 700, height: "50px" }}
+                sx={{ color: "red", fontWeight: 700, height: "40px" }}
             >
                 {error}
             </Typography>

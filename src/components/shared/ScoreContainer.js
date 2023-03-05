@@ -13,6 +13,18 @@ export default function ScoreContainer(props) {
             spacing={2}
         >
             <Chip
+                color="neutral"
+                variant="soft"
+                sx={{
+                    fontSize: "1.2rem",
+                }}
+            >
+                Selected: {" "}
+                <span style={{ fontWeight: 700 }}>
+                    {props.selectedYear}
+                </span>
+            </Chip>
+            <Chip
                 color="info"
                 variant="soft"
                 sx={{

@@ -7,6 +7,7 @@ import PhotoLibraryOutlined from "@mui/icons-material/PhotoLibraryOutlined";
 import TimerOutlined from "@mui/icons-material/TimerOutlined";
 import PageHeader from "./shared/PageHeader";
 import SubHeader from "./shared/SubHeadder";
+import CircularProgress from "@mui/joy/CircularProgress";
 
 export default function CreateRoomPage(props) {
     const [create, setCreate] = useState(false);
@@ -16,7 +17,9 @@ export default function CreateRoomPage(props) {
 
     useEffect(() => {
         if(!create) return;
-
+        
+        setError(<CircularProgress size="md" />);
+        setCreate(false);
         const endpoint = "/rooms/create";
         fetch(props.apiURL + endpoint, {
             method: "POST",
@@ -28,7 +31,6 @@ export default function CreateRoomPage(props) {
                 timer: timer,
             }),
         }).then((res) => {
-            setCreate(false);
             return res.json();
         }).then((res) => {
             if(res.status !== 200)
@@ -110,7 +112,7 @@ export default function CreateRoomPage(props) {
             <Typography
                 component={"h4"}
                 level="h4"
-                sx={{ color: "red", fontWeight: 700, height: "30px" }}
+                sx={{ color: "red", fontWeight: 700, height: "50px" }}
             >
                 {error}
             </Typography>

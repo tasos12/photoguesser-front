@@ -1,10 +1,8 @@
 import { Fragment, useEffect, useState } from "react";
-import Image from "next/image";
 import Stack from "@mui/joy/Stack";
 import Button from "@mui/joy/Button";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Slider from "@mui/joy/Slider";
-import Typography from "@mui/joy/Typography";
 import ScoreContainer from "./shared/ScoreContainer";
 import ImageContainer from "./shared/ImageContainer";
 
@@ -94,6 +92,7 @@ export default function GameRoomPage(props) {
             setResults((prevResults) => [...prevResults, {
                 imageSrc: imageSrc,
                 score: res.data.score,
+                selectedYear: selectedYear,
                 year: res.data.year,
             }]);
         }).catch((err) => {
@@ -147,6 +146,11 @@ export default function GameRoomPage(props) {
                 step={1}
                 marks={[
                     { value: startDate, label: startDate.toString() },
+                    { value: 1920, label: 1920 },
+                    { value: 1940, label: 1940 },
+                    { value: 1960, label: 1960 },
+                    { value: 1980, label: 1980 },
+                    { value: 2000, label: 2000 },
                     { value: endDate, label: endDate.toString() },
                 ]}
                 min={startDate}
@@ -159,14 +163,14 @@ export default function GameRoomPage(props) {
                     disabled={disabledControls}
                     onClick={handleSubmitClick}
                     size="lg"
-                    sx={{ m: 10 }}
+                    sx={{ mt: "40px !important" }}
                 >
                     Submit
                 </Button>
             )}
             {showScore && (
                 <Fragment>
-                    <ScoreContainer score={score} year={photoYear} />
+                    <ScoreContainer score={score} year={photoYear} selectedYear={selectedYear} />
                     <Button 
                         onClick={handleNextClick}
                         size="md"

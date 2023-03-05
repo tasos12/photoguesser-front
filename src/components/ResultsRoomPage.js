@@ -1,12 +1,11 @@
-import Image from "next/image";
 import Button from "@mui/joy/Button";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import Divider from "@mui/joy/Divider";
 import ScoreContainer from "./shared/ScoreContainer";
-import CircularProgress from "@mui/joy/CircularProgress";
 import Chip from "@mui/joy/Chip";
 import ImageContainer from "./shared/ImageContainer";
+import CustomCircularProgress from "./shared/CustomCircularProgress";
 
 export default function ResultsRoomPage(props) {
     const results = props.context.results;
@@ -36,11 +35,11 @@ export default function ResultsRoomPage(props) {
                 >
                     Total Score
                 </Typography>
-                <CircularProgress
-                    determinate
+                <CustomCircularProgress
+                    reverse={false}
                     value={totalScore/maxTotalScore * 100}
                     color={color}
-                    sx={{
+                    style={{
                         fontSize: "1.5rem",
                         "--CircularProgress-size": "156px",
                         "--CircularProgress-progress-thickness": "8px",
@@ -51,7 +50,8 @@ export default function ResultsRoomPage(props) {
                         {totalScore}
                     </span>
                     /{maxTotalScore}
-                </CircularProgress>
+                </CustomCircularProgress>
+
                 <Stack direction="column" alignItems="center" spacing={1}>
                     <Typography
                         component={"h4"}
@@ -88,7 +88,7 @@ export default function ResultsRoomPage(props) {
                             >
                                 <Divider/>
                                 <ImageContainer src={result.imageSrc} alt={result.imageSrc}/>
-                                <ScoreContainer score={result.score} year={result.year} />
+                                <ScoreContainer score={result.score} year={result.year} selectedYear={result.selectedYear} />
                             </Stack>
                         );
                     })
