@@ -110,6 +110,7 @@ export default function GameRoomPage(props) {
 
     const handleNextClick = () => {
         setIndex((prevIndex) => prevIndex + 1);
+        setSelectedYear(1960);
         setDisabledControls(false);
         setShowScore(false);
         setTimer(initialTimer);
