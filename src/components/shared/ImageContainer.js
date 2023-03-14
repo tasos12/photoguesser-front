@@ -15,6 +15,7 @@ export default function ImageContainer(props) {
             }}
         >
             <Image
+                onLoadingComplete={props.onLoadingComplete}
                 style={{ objectFit: "contain" }}
                 src={props.src}
                 alt={props.alt}

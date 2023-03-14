@@ -25,13 +25,15 @@ export default function GameRoomPage(props) {
     const [score, setScore] = useState(0);
     const [totalScore, setTotalScore] = useState(0);
     const [results, setResults] = useState([]);
-    const [disabledControls, setDisabledControls] = useState(false);
+    const [disabledControls, setDisabledControls] = useState(true);
 
     useEffect(() => {
-        if (timer === 0 || disabledControls) {
+        if (timer === 0) {
             handleSubmitClick();
             return;
         }
+        if(disabledControls)
+            return;
 
         const interval = setInterval(() => {
             setTimer((prevTimer) => prevTimer - 1);
@@ -49,7 +51,7 @@ export default function GameRoomPage(props) {
                 results: results,
             });
         }
-
+        setDisabledControls(true);
         const endpoint = "/photos/getPhoto?id=" + photos[index];
         fetch(props.apiURL + endpoint, {
             method: "GET",
@@ -57,6 +59,7 @@ export default function GameRoomPage(props) {
                 "Content-Type": "application/json",
             },
         }).then((res) => {
+            
             setNext(false);
             return res.json();
         }).then((res) => {
@@ -134,39 +137,45 @@ export default function GameRoomPage(props) {
                 {timer}
             </CircularProgress>
             
-            <ImageContainer src={imageSrc} alt={imageSrc}/>
-
-            <Slider
-                disabled={disabledControls}
-                onChange={(e, value) => {
-                    setSelectedYear(value);
-                }}
-                valueLabelDisplay="on"
-                defaultValue={1960}
-                step={1}
-                marks={[
-                    { value: startDate, label: startDate.toString() },
-                    { value: 1920, label: 1920 },
-                    { value: 1940, label: 1940 },
-                    { value: 1960, label: 1960 },
-                    { value: 1980, label: 1980 },
-                    { value: 2000, label: 2000 },
-                    { value: endDate, label: endDate.toString() },
-                ]}
-                min={startDate}
-                max={endDate}
-                size="lg"
-                sx={{ width: "90%", "--Slider-track-size": "6px" }}
+            <ImageContainer 
+                onLoadingComplete={() => {setDisabledControls(false)}} 
+                src={imageSrc} 
+                alt={imageSrc}
             />
             {!showScore && ( 
-                <Button
-                    disabled={disabledControls}
-                    onClick={handleSubmitClick}
-                    size="lg"
-                    sx={{ mt: "40px !important" }}
-                >
-                    Submit
-                </Button>
+                <Fragment>
+                    <Slider
+                        disabled={disabledControls}
+                        onChange={(e, value) => {
+                            setSelectedYear(value);
+                        }}
+                        valueLabelDisplay="on"
+                        defaultValue={1960}
+                        step={1}
+                        marks={[
+                            { value: startDate, label: startDate.toString() },
+                            { value: 1920, label: 1920 },
+                            { value: 1940, label: 1940 },
+                            { value: 1960, label: 1960 },
+                            { value: 1980, label: 1980 },
+                            { value: 2000, label: 2000 },
+                            { value: endDate, label: endDate.toString() },
+                        ]}
+                        min={startDate}
+                        max={endDate}
+                        size="lg"
+                        sx={{ width: "90%", "--Slider-track-size": "6px" }}
+                    />
+                
+                    <Button
+                        disabled={disabledControls}
+                        onClick={handleSubmitClick}
+                        size="lg"
+                        sx={{ mt: "40px !important" }}
+                    >
+                        Submit
+                    </Button>
+                </Fragment>
             )}
             {showScore && (
                 <Fragment>
