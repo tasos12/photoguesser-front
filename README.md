@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://raw.githubusercontent.com/tasos12/photoguesser-front/master/public/favicon.ico?token=GHSAT0AAAAAAB32ASKBYT7YZHFOI6QLC73OZARA43A" alt="Markdownify" width="200"></a>
+  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://raw.githubusercontent.com/tasos12/photoguesser-front/master/public/favicon.ico" alt="Photoguesser" width="200"></a>
   <br>
   Photoguesser
   <br>
