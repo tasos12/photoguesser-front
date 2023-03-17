@@ -7,7 +7,7 @@ export default function ImageContainer(props) {
             height= "56vh"
             width="80vw"
             minWidth={340}
-            maxWidth={800}
+            maxWidth={1024}
             sx={{ 
                 border: "1px solid #000000",
                 backgroundColor: "#000000",

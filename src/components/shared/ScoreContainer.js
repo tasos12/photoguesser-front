@@ -25,35 +25,23 @@ export default function ScoreContainer(props) {
                     </span>
                 </Chip>
             </div>
-            <Stack
-                direction="row"
-                spacing={1}
+            <Chip
+                color="neutral"
+                variant="soft"
+                sx={{
+                    fontSize: "1.2rem",
+                }}
             >
-                <Chip
-                    color="neutral"
-                    variant="soft"
-                    sx={{
-                        fontSize: "1.2rem",
-                    }}
-                >
-                    Selected: {" "}
-                    <span style={{ fontWeight: 700 }}>
-                        {props.selectedYear}
-                    </span>
-                </Chip>
-                <Chip
-                    color="info"
-                    variant="soft"
-                    sx={{
-                        fontSize: "1.2rem",
-                    }}
-                >
-                    Year: {" "}
-                    <span style={{ fontWeight: 700 }}>
-                        {props.year}
-                    </span>
-                </Chip>
-            </Stack>
+                Selected: {" "}
+                <span style={{ fontWeight: 700 }}>
+                    {props.selectedYear}
+                </span>
+                {" | "} Original: {" "}
+                <span style={{ fontWeight: 700 }}>
+                    {props.year}
+                </span>
+                <br/>
+            </Chip>
         </Stack>
     )
 }

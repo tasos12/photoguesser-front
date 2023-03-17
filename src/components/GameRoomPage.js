@@ -5,6 +5,7 @@ import CircularProgress from "@mui/joy/CircularProgress";
 import Slider from "@mui/joy/Slider";
 import ScoreContainer from "./shared/ScoreContainer";
 import ImageContainer from "./shared/ImageContainer";
+import { Chip } from "@mui/joy";
 
 export default function GameRoomPage(props) {
     const imageEndpoint = "https://photoguesser.s3.eu-central-1.amazonaws.com/"
@@ -125,18 +126,31 @@ export default function GameRoomPage(props) {
             width="100%"
             spacing={3}
         >
-            <CircularProgress
-                determinate
-                value={(timer / initialTimer) * 100}
-                sx={{
-                    fontSize: "1.5rem",
-                    "--CircularProgress-size": "8vh",
-                    "--CircularProgress-progress-thickness": "8px",
-                    "--CircularProgress-track-thickness": "8px",
-                }}
+            <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-around"
+                width="100%"
             >
-                {timer}
-            </CircularProgress>
+                <Chip size="lg" color="neutral">
+                    {totalScore}
+                </Chip>
+                <CircularProgress
+                    determinate
+                    value={(timer / initialTimer) * 100}
+                    sx={{
+                        fontSize: "1.5rem",
+                        "--CircularProgress-size": "8vh",
+                        "--CircularProgress-progress-thickness": "8px",
+                        "--CircularProgress-track-thickness": "8px",
+                    }}
+                >
+                    {timer}
+                </CircularProgress>
+                <Chip size="lg" color="neutral">
+                    {index + 1} / {photos.length}
+                </Chip>
+            </Stack>
             
             <ImageContainer 
                 onLoadingComplete={() => {setDisabledControls(false)}} 
@@ -165,7 +179,11 @@ export default function GameRoomPage(props) {
                         min={startDate}
                         max={endDate}
                         size="lg"
-                        sx={{ width: "90%", "--Slider-track-size": "6px" }}
+                        sx={{
+                            width: "80vw", 
+                            maxWidth: 1024, 
+                            "--Slider-track-size": "6px"
+                        }}
                     />
                 
                     <Button
