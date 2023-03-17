@@ -3,7 +3,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![License][license-shield]][license-url]
 
 <h1 align=center>
 <img src="https://github.com/tasos12/photoguesser-front/blob/b72a29baf9ce8ed2d08f76030bbc3add9edc7304/public/logo.svg" alt="Photoguesser" width="250">
