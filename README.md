@@ -8,7 +8,9 @@
   <br>
 </h1>
 
-<h4 align="center">A web browser game guessing photograph year that you can play with your friends.</h4>
+<h4 align="center">
+  Guess what year a photo was taken in a web browser game that you can play with your friends.
+</h4>
 
 <p align="center">
   <a href="https://badge.fury.io/js/next.svg">
