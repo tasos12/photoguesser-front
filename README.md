@@ -1,20 +1,20 @@
 <h1 align="center">
   <br>
-  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://raw.githubusercontent.com/tasos12/photoguesser-front/master/public/favicon.ico" alt="Photoguesser" width="200"></a>
+  <a href="http://www.amitmerchant.com/electron-markdownify">
+    <img src="https://github.com/tasos12/photoguesser-front/blob/b72a29baf9ce8ed2d08f76030bbc3add9edc7304/public/logo.svg" alt="Photoguesser" width="200">
+  </a>
   <br>
   Photoguesser
   <br>
 </h1>
 
-<h4 align="center">A photo guessing game you can play with your friends.</h4>
+<h4 align="center">
+  Guess what year a photo was taken in a web browser game that you can play with your friends.
+</h4>
 
 <p align="center">
-  <a href="https://badge.fury.io/js/react.svg">
-    <img src="https://badge.fury.io/js/react.svg"
-         alt="react">
-  </a>
   <a href="https://badge.fury.io/js/next.svg">
-    <img src="https://badge.fury.io/js/next.svg"
+    <img borderRadius="10px" src="https://badge.fury.io/js/next.svg"
          alt="next">
   </a>
 </p>
@@ -27,11 +27,13 @@
   <a href="#license">License</a>
 </p>
 
-![screenshot](https://raw.githubusercontent.com/tas/electron-markdownify/master/app/img/markdownify.gif)
+<p align="center">
+  <img src="https://github.com/tasos12/photoguesser-front/blob/b72a29baf9ce8ed2d08f76030bbc3add9edc7304/raw/overview.png"
+</p>
 
 ## How to play
 
-* Create a room and setup the options <b>or join</b> a room using a code.
+* <b>Create a room and setup the options <b>or join</b> a room using a code.
 * Start the game or share the code with your friends so they can join the room.
 * Guess what year the photo was taken and gather points.
 * Finish all rounds and compare scores with your friends.
