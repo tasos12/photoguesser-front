@@ -87,7 +87,7 @@ Distributed under the MIT License. See LICENSE.txt for more information.
 [issues-shield]: https://img.shields.io/github/issues/tasos12/photoguesser-front.svg?style=for-the-badge
 [issues-url]: https://github.com/tasos12/photoguesser-front/issues
 [license-shield]: https://img.shields.io/github/license/tasos12/photoguesser-front.svg?style=for-the-badge
-[license-url]: https://github.com/tasos12/photoguesser-front/blob/master/LICENSE.txt
+[license-url]: https://github.com/tasos12/photoguesser-front/blob/master/LICENSE.md
 [personalsite-shield]: https://img.shields.io/badge/-tasosgkagkas.com-darkcyan?style=for-the-badge
 [personalsite-url]: https://tasosgkagkas.com
 
