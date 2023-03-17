@@ -82,11 +82,11 @@ Distributed under the MIT License. See LICENSE.txt for more information.
 [contributors-url]: https://github.com/tasos12/photoguesser-front/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/tasos12/photoguesser-front.svg?style=for-the-badge
 [forks-url]: https://github.com/tasos12/photoguesser-front/network/members
-[stars-shield]: https://img.shields.io/github/stars/tasos12/photoguesser-front.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/tasos12/photoguesser-front.svg?label=Stars&style=for-the-badge
 [stars-url]: https://github.com/tasos12/photoguesser-front/stargazers
 [issues-shield]: https://img.shields.io/github/issues/tasos12/photoguesser-front.svg?style=for-the-badge
 [issues-url]: https://github.com/tasos12/photoguesser-front/issues
-[license-shield]: https://img.shields.io/github/license/tasos12/photoguesser-front.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/tasos12/photoguesser-front.svg?label=License&style=for-the-badge
 [license-url]: https://github.com/tasos12/photoguesser-front/blob/master/LICENSE.md
 [personalsite-shield]: https://img.shields.io/badge/-tasosgkagkas.com-darkcyan?style=for-the-badge
 [personalsite-url]: https://tasosgkagkas.com
