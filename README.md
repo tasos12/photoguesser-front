@@ -8,7 +8,7 @@
 <h1 align=center>
 <img src="https://github.com/tasos12/photoguesser-front/blob/b72a29baf9ce8ed2d08f76030bbc3add9edc7304/public/logo.svg" alt="Photoguesser" width="250">
 </br>
-<a href="https://www.photo-guesser.com/">Photoguesser</a>
+<a href="https://www.photo-guesser.com/" target="_blank" rel="noopener">Photoguesser</a>
 </h1>
 
 <h4 align="center">
@@ -24,7 +24,9 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/tasos12/photoguesser-front/blob/b72a29baf9ce8ed2d08f76030bbc3add9edc7304/raw/overview.png"
+  <a href="https://photo-guesser.com">
+    <img src="https://github.com/tasos12/photoguesser-front/blob/b72a29baf9ce8ed2d08f76030bbc3add9edc7304/raw/overview.png"/>
+  </a>
 </p>
 
 ## How to play
