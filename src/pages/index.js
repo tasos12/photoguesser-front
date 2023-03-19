@@ -17,44 +17,40 @@ export default function Home() {
         room: {}
     });
 
-    const setPageContext = (state) => {
-        setContext(state);
-    }
-
     let view;
     if(context.page === "create")  {
         view =  <CreateRoomPage
                     apiURL={apiURL}
                     context={context}
-                    setContext={setPageContext}
+                    setContext={setContext}
                 />
     } else if (context.page === "start") {
         view = 
                 <StartRoomPage
                     apiURL={apiURL}
                     context={context}
-                    setContext={setPageContext}
+                    setContext={setContext}
                 />
     } else if (context.page === "game") {
         view = 
                 <GameRoomPage
                     apiURL={apiURL}
                     context={context}
-                    setContext={setPageContext}
+                    setContext={setContext}
                 />
     } else if (context.page === "results") {
         view = 
                 <ResultsRoomPage
                     apiURL={apiURL}
                     context={context}
-                    setContext={setPageContext}
+                    setContext={setContext}
                 />
     } else {
         view =  
                 <MainPage
                     apiURL={apiURL}
                     context={context}
-                    setContext={setPageContext}
+                    setContext={setContext}
                 />
     }
     
