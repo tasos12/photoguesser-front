@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import Button from "@mui/joy/Button";
 import Input from "@mui/joy/Input";
@@ -58,13 +58,13 @@ export default function MainPage(props) {
                 level="h1"
                 sx={{ 
                     textAlign: "center", 
-                    fontSize: "52px",
                     fontWeight: 700,
                 }}
             >
                 Photoguesser
             </Typography>
             <Button
+                component={"div"}
                 color="primary"
                 onClick={() => props.setContext({ page: "create" })}
                 size="lg"

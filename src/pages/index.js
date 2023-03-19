@@ -57,14 +57,19 @@ export default function Home() {
                     setContext={setPageContext}
                 />
     }
-
+    
     return (
         <>
             <Head>
-                <title>Photo Guesser</title>
+                <title>Photoguesser - Discover new pieces of history!</title>
                 <meta
                     name="description"
-                    content="Test your knowledge in photography or challenge your friends and discover old pieces of history together"
+                    content="
+                            Discover new pieces of history!
+                            Find clues and guess what year a photo was taken 
+                            in this game. Test your knowledge of the past or
+                            compete with your friends. Play free now!
+                            "
                 />
                 <meta
                     name="viewport"
@@ -79,7 +84,7 @@ export default function Home() {
                         width: "100vw", 
                         minWidth: "280px", 
                         maxWidth: "380px",
-                        marginTop: "4vh", 
+                        marginTop: "2vh", 
                     }}>
                         {view}
                     </div>
