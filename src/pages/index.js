@@ -67,6 +67,10 @@ export default function Home() {
                             compete with your friends. Play free now!
                             "
                 />
+                <meta 
+                    name="keywords" 
+                    content="photoguesser, photo, guesser, guess, history, past, year, game, free, play, online, multiplayer, friends, family, fun, entertainment"
+                />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1"
@@ -76,6 +80,12 @@ export default function Home() {
                     content="ZZvhfDtR6No8XGiqztsVRwJuL0GtDTrjCBaKONWUuuQ"
                 />
                 <link rel="icon" href="/favicon.ico" />
+                <link rel="shortcut icon" href="/favicon.ico" />
+                <link rel="apple-touch-icon" href="/favicon.ico" />
+                <link rel="apple-touch-icon-precomposed" href="/favicon.ico" />
+                <meta name="author" content="Tasos Gkagkas" />
+                <meta name="copyright" content="Tasos Gkagkas" />
+                <meta charSet="UTF-8" />
             </Head>
             <main className={styles.main}>
                 <CssVarsProvider theme={extendedTheme}>
