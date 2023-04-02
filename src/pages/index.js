@@ -61,11 +61,10 @@ export default function Home() {
                 <meta
                     name="description"
                     content="
-                            Guess the year a photograph was taken!
+                            Guess the year a photo was taken!
                             Photoguesser is a game that you find clues 
-                            and estimate what year a photo was taken. 
-                            Test your knowledge of the past or
-                            compete with your friends. Play free now!
+                            and estimate what year a picture was taken. 
+                            Play free now!
                             "
                 />
                 <meta 
@@ -74,37 +73,14 @@ export default function Home() {
                             photoguesser,
                             photo guesser,
                             guess the year,
-                            guess the date,
-                            guess the year of a photo,
-                            guess the date of a photo,
-                            guess the year of a picture,
-                            guess the date of a picture,
+                            guess the photo year,
+                            guess the year game,
+                            guess the photo game,
+                            guess the picture,
+                            guess the picture game,
                             guess the year of a photograph,
-                            guess the date of a photograph,
                             guess the year of a photo game,
-                            guess the date of a photo game,
-                            guess the year of a picture game,
-                            guess the date of a picture game,
                             guess the year of a photograph game,
-                            guess the date of a photograph game,
-                            guess the year of a photo quiz,
-                            guess the date of a photo quiz,
-                            guess the year of a picture quiz,
-                            guess the date of a picture quiz,
-                            guess the year of a photograph quiz,
-                            guess the date of a photograph quiz,
-                            guess the year of a photo trivia,
-                            guess the date of a photo trivia,
-                            guess the year of a picture trivia,
-                            guess the date of a picture trivia,
-                            guess the year of a photograph trivia,
-                            guess the date of a photograph trivia,
-                            guess the year of a photo trivia game,
-                            guess the date of a photo trivia game,
-                            guess the year of a picture trivia game,
-                            guess the date of a picture trivia game,
-                            guess the year of a photograph trivia game,
-                            guess the date of a photograph trivia game,
                             "
                 />
                 <meta
