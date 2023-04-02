@@ -52,7 +52,7 @@ export default function MainPage(props) {
             width="100%"
             sx={{ overflowX: "hidden" }}
         >
-            <Image src="/logo.svg" alt="logo" width={200} height={160}/>
+            <Image src="/logo.svg" alt="photoguesser" width={200} height={160}/>
             <Typography
                 component={"h1"}
                 level="h1"

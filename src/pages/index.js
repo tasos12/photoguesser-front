@@ -105,23 +105,6 @@ export default function Home() {
                             guess the date of a picture trivia game,
                             guess the year of a photograph trivia game,
                             guess the date of a photograph trivia game,
-                            guess the year of a photo trivia quiz,
-                            guess the date of a photo trivia quiz,
-                            guess the year of a picture trivia quiz,
-                            guess the date of a picture trivia quiz,
-                            guess the year of a photograph trivia quiz,
-                            guess the date of a photograph trivia quiz,
-                            guess the year of a picture trivia questions,
-                            guess the date of a picture trivia questions,
-                            guess the year of a photograph trivia questions,
-                            guess the date of a photograph trivia questions,
-                            guess the year of a photo trivia quiz questions,
-                            guess the date of a photo trivia quiz questions,
-                            guess the year of a picture trivia quiz questions,
-                            guess the date of a picture trivia quiz questions,
-                            guess the year of a photograph trivia quiz questions,
-                            guess the date of a photograph trivia quiz questions,
-                            guess the date of a photo
                             "
                 />
                 <meta
