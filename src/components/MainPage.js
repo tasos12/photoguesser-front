@@ -63,8 +63,19 @@ export default function MainPage(props) {
             >
                 Photoguesser
             </Typography>
+            <Typography
+                component={"h2"}
+                level="h4"
+                sx={{
+                    textAlign: "center",
+                    fontWeight: 700,
+                    color: "grey",
+                }}
+            >
+                Guess the year!
+            </Typography>
             <Button
-                component={"div"}
+                component={"h2"}
                 color="primary"
                 onClick={() => props.setContext({ page: "create" })}
                 size="lg"
@@ -81,6 +92,7 @@ export default function MainPage(props) {
                 placeholder="Insert room code and"
                 endDecorator={
                     <Button
+                        component={"h2"}
                         sx={{ px: 2 }}
                         onClick={() => setJoin(true)}
                         variant="plain"
