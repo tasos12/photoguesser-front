@@ -83,21 +83,10 @@ export default function Home() {
                             guess the year of a photograph game,
                             "
                 />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1"
-                />
                 <meta 
                     name="google-site-verification" 
                     content="ZZvhfDtR6No8XGiqztsVRwJuL0GtDTrjCBaKONWUuuQ"
                 />
-                <link rel="icon" href="/favicon.ico" />
-                <link rel="shortcut icon" href="/favicon.ico" />
-                <link rel="apple-touch-icon" href="/favicon.ico" />
-                <link rel="apple-touch-icon-precomposed" href="/favicon.ico" />
-                <meta name="author" content="Tasos Gkagkas" />
-                <meta name="copyright" content="Tasos Gkagkas" />
-                <meta charSet="UTF-8" />
             </Head>
             <main className={styles.main}>
                 <CssVarsProvider theme={extendedTheme}>
