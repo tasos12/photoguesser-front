@@ -63,7 +63,7 @@ export default function Home() {
                     content="
                             Guess the year a photograph was taken!
                             Photoguesser is a game that you find clues 
-                            and guess what year a photo was taken. 
+                            and estimate what year a photo was taken. 
                             Test your knowledge of the past or
                             compete with your friends. Play free now!
                             "
