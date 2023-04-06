@@ -20,35 +20,30 @@ export default function Home() {
     let view;
     if(context.page === "create")  {
         view =  <CreateRoomPage
-                    apiURL={apiURL}
                     context={context}
                     setContext={setContext}
                 />
     } else if (context.page === "start") {
         view = 
                 <StartRoomPage
-                    apiURL={apiURL}
                     context={context}
                     setContext={setContext}
                 />
     } else if (context.page === "game") {
         view = 
                 <GameRoomPage
-                    apiURL={apiURL}
                     context={context}
                     setContext={setContext}
                 />
     } else if (context.page === "results") {
         view = 
                 <ResultsRoomPage
-                    apiURL={apiURL}
                     context={context}
                     setContext={setContext}
                 />
     } else {
         view =  
                 <MainPage
-                    apiURL={apiURL}
                     context={context}
                     setContext={setContext}
                 />
@@ -82,6 +77,10 @@ export default function Home() {
                             guess the year of a photo game,
                             guess the year of a photograph game,
                             "
+                />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1"
                 />
                 <meta 
                     name="google-site-verification" 

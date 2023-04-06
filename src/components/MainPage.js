@@ -74,6 +74,14 @@ export default function MainPage(props) {
             >
                 Guess the year!
             </Typography>
+            <Button                
+                component={"h2"}
+                color="info"
+                onClick={() => props.setContext({ })}
+                size="lg"
+            >
+                Daily Challenge
+            </Button>
             <Button
                 component={"h2"}
                 color="primary"

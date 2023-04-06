@@ -54,7 +54,7 @@ export default function GameRoomPage(props) {
         }
         setDisabledControls(true);
         const endpoint = "/photos/getPhoto?id=" + photos[index];
-        fetch(props.apiURL + endpoint, {
+        fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -65,7 +65,7 @@ export default function GameRoomPage(props) {
             return res.json();
         }).then((res) => {
             if (res.status !== 200) throw new Error(res.message);
-            setImageSrc(imageEndpoint + res.data.name + ".jpg");
+            setImageSrc(process.env.NEXT_PUBLIC_IMAGE_URL + res.data.name + ".jpg");
         }).catch((err) => {
             console.log(err);
         });
@@ -77,7 +77,7 @@ export default function GameRoomPage(props) {
         const idParam = "id=" + photos[index];
         const yearParam = "year=" + selectedYear;
         const endpoint = "/photos/getScore?" + idParam + "&" + yearParam;
-        fetch(props.apiURL + endpoint, {
+        fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -102,7 +102,7 @@ export default function GameRoomPage(props) {
         }).catch((err) => {
             console.log(err);
         });
-    }, [photos, index, imageSrc, selectedYear, submit, props.apiURL])
+    }, [photos, index, imageSrc, selectedYear, submit])
 
     const handleSubmitClick = () => {
         setDisabledControls(true);

@@ -21,7 +21,7 @@ export default function CreateRoomPage(props) {
         setError(<CircularProgress size="md" />);
         setCreate(false);
         const endpoint = "/rooms/create";
-        fetch(props.apiURL + endpoint, {
+        fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
