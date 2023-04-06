@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button"
@@ -9,10 +9,12 @@ import Key from "@mui/icons-material/Key";
 import Chip from "@mui/joy/Chip";
 import ContentCopy from "@mui/icons-material/ContentCopy";
 import AssignmentTurnedIn from "@mui/icons-material/AssignmentTurnedIn";
-import PageHeader from "./shared/PageHeader";
-import SubHeader from "./shared/SubHeadder";
+import PageHeader from "../shared/PageHeader";
+import SubHeader from "../shared/SubHeadder";
+import { ViewContext } from "@/contexts/ViewContext";
 
-export default function StartRoomPage(props) {
+export default function StartRoomView() {
+    const context = useContext(ViewContext);
     const [copiedToClipboard, setCopiedToClipboard] = useState(false);
 
     return (
@@ -24,7 +26,7 @@ export default function StartRoomPage(props) {
         >
             <PageHeader 
                 title="Lobby"
-                onPreviousClick={() => props.setContext({ page: "main" })}
+                onPreviousClick={() => context.setView("main")}
             />
             <Stack
                 direction="column"
@@ -45,7 +47,7 @@ export default function StartRoomPage(props) {
                             <PhotoLibraryOutlined />
                         }
                     >
-                        {props.context.room.settings.photoCount}
+                        {context.room.settings.photoCount}
                     </Chip>
                     <Chip
                         color="neutral"
@@ -54,7 +56,7 @@ export default function StartRoomPage(props) {
                             <TimerOutlined />
                         }
                     >
-                        {props.context.room.settings.timer}
+                        {context.room.settings.timer}
                     </Chip>
                 </Stack>
             </Stack>
@@ -68,7 +70,7 @@ export default function StartRoomPage(props) {
                 <SubHeader title="Keycode" icon={<Key />} />
                 <Chip 
                     onClick={() => {
-                        navigator.clipboard.writeText(props.context.room.code);
+                        navigator.clipboard.writeText(context.room.code);
                         setCopiedToClipboard(true);
                         setTimeout(() => setCopiedToClipboard(false), 2000);
                     }}
@@ -83,12 +85,12 @@ export default function StartRoomPage(props) {
                     }
                     sx={{ borderRadius: "6px", fontWeight: "bold" }}
                 >
-                    {props.context.room.code}
+                    {context.room.code}
                 </Chip>
             </Stack>
 
             <Button
-                onClick={() => props.setContext({ page: "game", room: props.context.room })}
+                onClick={() => context.setView("game")}
                 size="lg"
             >
                 Start Game

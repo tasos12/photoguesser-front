@@ -1,15 +1,17 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Image from "next/image";
 import Button from "@mui/joy/Button";
 import Input from "@mui/joy/Input";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
-import Footer from "./shared/Footer";
+import Footer from "@/components/shared/Footer";
 import CircularProgress from "@mui/joy/CircularProgress";
+import { ViewContext } from "@/contexts/ViewContext";
 
-
-export default function MainPage(props) {
+export default function MainView() {
+    const context = useContext(ViewContext);
     const [join, setJoin] = useState(false);
+    const [daily, setDaily] = useState(false);
     const [roomCode, setRoomCode] = useState("");
     const [error, setError] = useState("");
 
@@ -19,7 +21,7 @@ export default function MainPage(props) {
         setJoin(false);
         setError(<CircularProgress size="md" />);
         const endpoint = "/rooms/connect?code=" + roomCode;
-        fetch(props.apiURL + endpoint, {
+        fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -28,10 +30,10 @@ export default function MainPage(props) {
             return res.json();
         }).then((res) => {
             if(res.status !== 200) 
-                setError("Could not join room.");
+                throw new Error(res.message);
 
-            props.setContext({ 
-                page: "start", 
+            context.setView("start");
+            context.setContext({ 
                 room: { 
                     code: res.data.code, 
                     photos: res.data.photoIDs,
@@ -39,10 +41,36 @@ export default function MainPage(props) {
                 }
             }); 
         }).catch((err) => {
-            
+            setError("Could not join room.");
         });
 
-    }, [join, roomCode, props]);
+    }, [join, roomCode, context]);
+
+    useEffect(() => {
+        if(!daily) return;
+        setDaily(false);
+
+        const endpoint = "/daily/latest";
+        fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then((res) => {
+            return res.json();
+        }).then((res) => {
+            if(res.status !== 200) 
+                throw new Error();
+
+            context.setView("game");
+            context.setRoom({ 
+                photos: res.data.photoIDs,
+                settings: res.data.settings,
+            }); 
+        }).catch((err) => {
+            setError("Could not start daily challenge.");
+        });
+    }, [daily, context]);
 
     return (
         <Stack
@@ -77,7 +105,7 @@ export default function MainPage(props) {
             <Button                
                 component={"h2"}
                 color="info"
-                onClick={() => props.setContext({ })}
+                onClick={() => setDaily(true)}
                 size="lg"
             >
                 Daily Challenge
@@ -85,7 +113,7 @@ export default function MainPage(props) {
             <Button
                 component={"h2"}
                 color="primary"
-                onClick={() => props.setContext({ page: "create" })}
+                onClick={() => context.setView("create")}
                 size="lg"
             >
                 Create Game
