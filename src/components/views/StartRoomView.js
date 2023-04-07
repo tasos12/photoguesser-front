@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import Stack from "@mui/joy/Stack";
-import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button"
 import PhotoLibraryOutlined from "@mui/icons-material/PhotoLibraryOutlined";
 import TimerOutlined from "@mui/icons-material/TimerOutlined";
@@ -9,8 +8,8 @@ import Key from "@mui/icons-material/Key";
 import Chip from "@mui/joy/Chip";
 import ContentCopy from "@mui/icons-material/ContentCopy";
 import AssignmentTurnedIn from "@mui/icons-material/AssignmentTurnedIn";
-import PageHeader from "../shared/PageHeader";
-import SubHeader from "../shared/SubHeadder";
+import PageHeader from "@/components/shared/PageHeader";
+import SubHeader from "@/components/shared/SubHeadder";
 import { ViewContext } from "@/contexts/ViewContext";
 
 export default function StartRoomView() {

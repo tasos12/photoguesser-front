@@ -84,22 +84,31 @@ export default function MainView() {
             >
                 Guess the year!
             </Typography>
-            <Button                
-                component={"h3"}
-                color="info"
-                onClick={() => setDaily(true)}
-                size="lg"
+            <Stack 
+                component={"div"} 
+                direction={"row"} 
+                spacing={2} 
+                sx={{ display: 'flex', width: "100%", maxWidth: "340px" }}
             >
-                Daily Challenge
-            </Button>
-            <Button
-                component={"h3"}
-                color="primary"
-                onClick={() => context.setView("create")}
-                size="lg"
-            >
-                Create Game
-            </Button>
+                <Button                
+                    component={"h3"}
+                    color="info"
+                    onClick={() => setDaily(true)}
+                    size="lg"
+                    sx={{ flex: 0.5 }}
+                >
+                    Daily Challenge
+                </Button>
+                <Button
+                    component={"h3"}
+                    color="primary"
+                    onClick={() => context.setView("create")}
+                    size="lg"
+                    sx={{ flex: 0.5 }}
+                >
+                    Create Game
+                </Button>
+            </Stack>
             <Typography component={"h3"} level="h3">
                 Or
             </Typography>

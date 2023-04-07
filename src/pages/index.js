@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import styles from '@/styles/Home.module.css'
 import { CssVarsProvider } from "@mui/joy/styles";
 import MainView from "@/components/views/MainView";
@@ -12,6 +12,13 @@ import { ViewContext } from '@/contexts/ViewContext';
 
 export default function Home() {
     const context = useContext(ViewContext)
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        if(loaded) return;
+        context.setView("main")
+        setLoaded(true);
+    }, [loaded, context]);
 
     let view = <MainView/>;
     if(context.view === "create")  {
