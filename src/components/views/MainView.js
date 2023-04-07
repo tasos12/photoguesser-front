@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Button from "@mui/joy/Button";
 import Input from "@mui/joy/Input";
@@ -46,31 +47,12 @@ export default function MainView() {
 
     }, [join, roomCode, context]);
 
+    const { push } = useRouter();
     useEffect(() => {
         if(!daily) return;
         setDaily(false);
-
-        const endpoint = "/daily/latest";
-        fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).then((res) => {
-            return res.json();
-        }).then((res) => {
-            if(res.status !== 200) 
-                throw new Error();
-
-            context.setView("game");
-            context.setRoom({ 
-                photos: res.data.photoIDs,
-                settings: res.data.settings,
-            }); 
-        }).catch((err) => {
-            setError("Could not start daily challenge.");
-        });
-    }, [daily, context]);
+        push("/daily");
+    }, [daily, push, context]);
 
     return (
         <Stack
@@ -103,7 +85,7 @@ export default function MainView() {
                 Guess the year!
             </Typography>
             <Button                
-                component={"h2"}
+                component={"h3"}
                 color="info"
                 onClick={() => setDaily(true)}
                 size="lg"
@@ -111,14 +93,14 @@ export default function MainView() {
                 Daily Challenge
             </Button>
             <Button
-                component={"h2"}
+                component={"h3"}
                 color="primary"
                 onClick={() => context.setView("create")}
                 size="lg"
             >
                 Create Game
             </Button>
-            <Typography component={"h2"} level="h2">
+            <Typography component={"h3"} level="h3">
                 Or
             </Typography>
             <Input
@@ -128,7 +110,7 @@ export default function MainView() {
                 placeholder="Insert room code and"
                 endDecorator={
                     <Button
-                        component={"h2"}
+                        component={"h3"}
                         sx={{ px: 2 }}
                         onClick={() => setJoin(true)}
                         variant="plain"

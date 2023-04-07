@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useRouter } from "next/router";
 import Button from "@mui/joy/Button";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
@@ -10,6 +11,7 @@ import CustomCircularProgress from "@/components/shared/CustomCircularProgress";
 import { ViewContext } from "@/contexts/ViewContext";
 
 export default function ResultsRoomView() {
+    const { push } = useRouter();
     const context = useContext(ViewContext)
     const results = context.results;
     const totalScore = context.totalScore;
@@ -97,7 +99,10 @@ export default function ResultsRoomView() {
                     })
                 }
             </Stack>
-            <Button onClick={()=> context.setView("main")}>
+            <Button onClick={()=> { 
+                context.setView("main")
+                push("/") 
+            }}>
                 Back to Lobby
             </Button>
         </Stack>

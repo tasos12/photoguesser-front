@@ -11,10 +11,9 @@ import { extendedTheme } from '@/components/shared/ExtendedTheme';
 import { ViewContext } from '@/contexts/ViewContext';
 
 export default function Home() {
-    // const apiURL = "http://localhost:8080/api/v1";
     const context = useContext(ViewContext)
 
-    let view;
+    let view = <MainView/>;
     if(context.view === "create")  {
         view =  <CreateRoomView/>
     } else if (context.view === "start") {
@@ -23,8 +22,6 @@ export default function Home() {
         view = <GameRoomView/>
     } else if (context.view === "results") {
         view = <ResultsRoomView/>
-    } else {
-        view = <MainView/>
     }
     
     return (
