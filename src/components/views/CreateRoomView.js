@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Button from "@mui/joy/Button";
 import Typography from "@mui/joy/Typography";
 import Stack from "@mui/joy/Stack";
 import Slider from "@mui/joy/Slider";
 import PhotoLibraryOutlined from "@mui/icons-material/PhotoLibraryOutlined";
 import TimerOutlined from "@mui/icons-material/TimerOutlined";
-import PageHeader from "./shared/PageHeader";
-import SubHeader from "./shared/SubHeadder";
+import PageHeader from "@/components/shared/PageHeader";
+import SubHeader from "@/components/shared/SubHeadder";
 import CircularProgress from "@mui/joy/CircularProgress";
+import { ViewContext } from "@/contexts/ViewContext";
 
-export default function CreateRoomPage(props) {
+export default function CreateRoomView() {
+    const context = useContext(ViewContext);
     const [create, setCreate] = useState(false);
     const [photoCount, setPhotoCount] = useState(10);
     const [timer, setTimer] = useState(30);
@@ -21,7 +23,7 @@ export default function CreateRoomPage(props) {
         setError(<CircularProgress size="md" />);
         setCreate(false);
         const endpoint = "/rooms/create";
-        fetch(props.apiURL + endpoint, {
+        fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -36,18 +38,16 @@ export default function CreateRoomPage(props) {
             if(res.status !== 200)
                 throw new Error(res.message);
 
-            props.setContext({ 
-                page: "start", 
-                room: { 
-                    code: res.data.code, 
-                    photos: res.data.photoIDs,
-                    settings: res.data.settings,
-                }
+            context.setView("start");
+            context.setRoom({ 
+                code: res.data.code, 
+                photos: res.data.photoIDs,
+                settings: res.data.settings,
             }); 
         }).catch((err) => {
             setError("Could not create room.");
         });
-    }, [create, photoCount, timer, props]);
+    }, [create, photoCount, timer, context]);
 
     return (
         <Stack
@@ -58,7 +58,7 @@ export default function CreateRoomPage(props) {
         >
             <PageHeader 
                 title="Settings"
-                onPreviousClick={() => props.setContext({ page: "main" })}
+                onPreviousClick={() => context.setView("main")}
             />
             <Stack
                 width="100%"

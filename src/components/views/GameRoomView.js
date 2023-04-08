@@ -1,16 +1,18 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import Stack from "@mui/joy/Stack";
 import Button from "@mui/joy/Button";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Slider from "@mui/joy/Slider";
-import ScoreContainer from "./shared/ScoreContainer";
-import ImageContainer from "./shared/ImageContainer";
-import { Chip } from "@mui/joy";
+import ScoreContainer from "@/components/shared/ScoreContainer";
+import ImageContainer from "@/components/shared/ImageContainer";
+import Chip from "@mui/joy/Chip";
+import { ViewContext } from "@/contexts/ViewContext";
 
-export default function GameRoomPage(props) {
-    const imageEndpoint = "https://photoguesser.s3.eu-central-1.amazonaws.com/"
-    const initialTimer = props.context.room.settings.timer;
-    const photos = props.context.room.photos;
+export default function GameRoomView() {
+    const context = useContext(ViewContext);
+
+    const initialTimer = context.room.settings.timer;
+    const photos = context.room.photos;
     
     const startDate = 1900;
     const endDate = 2022;
@@ -45,16 +47,13 @@ export default function GameRoomPage(props) {
     useEffect(() => {
         if (!next) return;
         if (index === photos.length) {
-            props.setContext({
-                page: "results",
-                room: props.context.room,
-                totalScore: totalScore,
-                results: results,
-            });
+            context.setView("results");
+            context.setTotalScore(totalScore);
+            context.setResults(results);
         }
         setDisabledControls(true);
         const endpoint = "/photos/getPhoto?id=" + photos[index];
-        fetch(props.apiURL + endpoint, {
+        fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -65,11 +64,11 @@ export default function GameRoomPage(props) {
             return res.json();
         }).then((res) => {
             if (res.status !== 200) throw new Error(res.message);
-            setImageSrc(imageEndpoint + res.data.name + ".jpg");
+            setImageSrc(process.env.NEXT_PUBLIC_IMAGE_URL + res.data.name + ".jpg");
         }).catch((err) => {
             console.log(err);
         });
-    }, [photos, totalScore, results, index, next, props]);
+    }, [photos, totalScore, results, index, next, context]);
 
     useEffect(() => {
         if (!submit) return;
@@ -77,7 +76,7 @@ export default function GameRoomPage(props) {
         const idParam = "id=" + photos[index];
         const yearParam = "year=" + selectedYear;
         const endpoint = "/photos/getScore?" + idParam + "&" + yearParam;
-        fetch(props.apiURL + endpoint, {
+        fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -102,7 +101,7 @@ export default function GameRoomPage(props) {
         }).catch((err) => {
             console.log(err);
         });
-    }, [photos, index, imageSrc, selectedYear, submit, props.apiURL])
+    }, [photos, index, imageSrc, selectedYear, submit])
 
     const handleSubmitClick = () => {
         setDisabledControls(true);

@@ -1,57 +1,34 @@
 import Head from 'next/head'
+import { useContext, useState, useEffect } from 'react';
 import styles from '@/styles/Home.module.css'
 import { CssVarsProvider } from "@mui/joy/styles";
-import MainPage from "@/components/MainPage";
-import CreateRoomPage from '@/components/CreateRoomPage';
-import { useState } from 'react';
-import StartRoomPage from '@/components/StartRoomPage';
-import GameRoomPage from '@/components/GameRoomPage';
-import ResultsRoomPage from '@/components/ResultsRoomPage';
+import MainView from "@/components/views/MainView";
+import CreateRoomView from '@/components/views/CreateRoomView';
+import StartRoomView from '@/components/views/StartRoomView';
+import GameRoomView from '@/components/views/GameRoomView';
+import ResultsRoomView from '@/components/views/ResultsRoomView';
 import { extendedTheme } from '@/components/shared/ExtendedTheme';
+import { ViewContext } from '@/contexts/ViewContext';
 
 export default function Home() {
-    // const apiURL = "http://localhost:8080/api/v1";
-    const apiURL = "https://api.photo-guesser.com/api/v1"
-    const [context, setContext] = useState( {
-        page: "main",
-        room: {}
-    });
+    const context = useContext(ViewContext)
+    const [loaded, setLoaded] = useState(false);
 
-    let view;
-    if(context.page === "create")  {
-        view =  <CreateRoomPage
-                    apiURL={apiURL}
-                    context={context}
-                    setContext={setContext}
-                />
-    } else if (context.page === "start") {
-        view = 
-                <StartRoomPage
-                    apiURL={apiURL}
-                    context={context}
-                    setContext={setContext}
-                />
-    } else if (context.page === "game") {
-        view = 
-                <GameRoomPage
-                    apiURL={apiURL}
-                    context={context}
-                    setContext={setContext}
-                />
-    } else if (context.page === "results") {
-        view = 
-                <ResultsRoomPage
-                    apiURL={apiURL}
-                    context={context}
-                    setContext={setContext}
-                />
-    } else {
-        view =  
-                <MainPage
-                    apiURL={apiURL}
-                    context={context}
-                    setContext={setContext}
-                />
+    useEffect(() => {
+        if(loaded) return;
+        context.setView("main")
+        setLoaded(true);
+    }, [loaded, context]);
+
+    let view = <MainView/>;
+    if(context.view === "create")  {
+        view =  <CreateRoomView/>
+    } else if (context.view === "start") {
+        view = <StartRoomView/>
+    } else if (context.view === "game") {
+        view = <GameRoomView/>
+    } else if (context.view === "results") {
+        view = <ResultsRoomView/>
     }
     
     return (
@@ -82,6 +59,10 @@ export default function Home() {
                             guess the year of a photo game,
                             guess the year of a photograph game,
                             "
+                />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1"
                 />
                 <meta 
                     name="google-site-verification" 

@@ -1,15 +1,18 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Button from "@mui/joy/Button";
 import Input from "@mui/joy/Input";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
-import Footer from "./shared/Footer";
+import Footer from "@/components/shared/Footer";
 import CircularProgress from "@mui/joy/CircularProgress";
+import { ViewContext } from "@/contexts/ViewContext";
 
-
-export default function MainPage(props) {
+export default function MainView() {
+    const context = useContext(ViewContext);
     const [join, setJoin] = useState(false);
+    const [daily, setDaily] = useState(false);
     const [roomCode, setRoomCode] = useState("");
     const [error, setError] = useState("");
 
@@ -19,7 +22,7 @@ export default function MainPage(props) {
         setJoin(false);
         setError(<CircularProgress size="md" />);
         const endpoint = "/rooms/connect?code=" + roomCode;
-        fetch(props.apiURL + endpoint, {
+        fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -28,10 +31,10 @@ export default function MainPage(props) {
             return res.json();
         }).then((res) => {
             if(res.status !== 200) 
-                setError("Could not join room.");
+                throw new Error(res.message);
 
-            props.setContext({ 
-                page: "start", 
+            context.setView("start");
+            context.setContext({ 
                 room: { 
                     code: res.data.code, 
                     photos: res.data.photoIDs,
@@ -39,10 +42,17 @@ export default function MainPage(props) {
                 }
             }); 
         }).catch((err) => {
-            
+            setError("Could not join room.");
         });
 
-    }, [join, roomCode, props]);
+    }, [join, roomCode, context]);
+
+    const { push } = useRouter();
+    useEffect(() => {
+        if(!daily) return;
+        setDaily(false);
+        push("/daily");
+    }, [daily, push, context]);
 
     return (
         <Stack
@@ -74,15 +84,32 @@ export default function MainPage(props) {
             >
                 Guess the year!
             </Typography>
-            <Button
-                component={"h2"}
-                color="primary"
-                onClick={() => props.setContext({ page: "create" })}
-                size="lg"
+            <Stack 
+                component={"div"} 
+                direction={"row"} 
+                spacing={2} 
+                sx={{ display: 'flex', width: "100%", maxWidth: "340px" }}
             >
-                Create Game
-            </Button>
-            <Typography component={"h2"} level="h2">
+                <Button                
+                    component={"h3"}
+                    color="info"
+                    onClick={() => setDaily(true)}
+                    size="lg"
+                    sx={{ flex: 0.5 }}
+                >
+                    Daily Challenge
+                </Button>
+                <Button
+                    component={"h3"}
+                    color="primary"
+                    onClick={() => context.setView("create")}
+                    size="lg"
+                    sx={{ flex: 0.5 }}
+                >
+                    Create Game
+                </Button>
+            </Stack>
+            <Typography component={"h3"} level="h3">
                 Or
             </Typography>
             <Input
@@ -92,7 +119,7 @@ export default function MainPage(props) {
                 placeholder="Insert room code and"
                 endDecorator={
                     <Button
-                        component={"h2"}
+                        component={"h3"}
                         sx={{ px: 2 }}
                         onClick={() => setJoin(true)}
                         variant="plain"

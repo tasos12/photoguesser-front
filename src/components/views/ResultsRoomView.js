@@ -1,16 +1,21 @@
+import { useContext } from "react";
+import { useRouter } from "next/router";
 import Button from "@mui/joy/Button";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import Divider from "@mui/joy/Divider";
-import ScoreContainer from "./shared/ScoreContainer";
 import Chip from "@mui/joy/Chip";
-import ImageContainer from "./shared/ImageContainer";
-import CustomCircularProgress from "./shared/CustomCircularProgress";
+import ScoreContainer from "@/components/shared/ScoreContainer";
+import ImageContainer from "@/components/shared/ImageContainer";
+import CustomCircularProgress from "@/components/shared/CustomCircularProgress";
+import { ViewContext } from "@/contexts/ViewContext";
 
-export default function ResultsRoomPage(props) {
-    const results = props.context.results;
-    const totalScore = props.context.totalScore;
-    const maxTotalScore = props.context.room.settings.photoCount * 100
+export default function ResultsRoomView() {
+    const { push } = useRouter();
+    const context = useContext(ViewContext)
+    const results = context.results;
+    const totalScore = context.totalScore;
+    const maxTotalScore = context.room.settings.photoCount * 100
     
     let performance = "Excellent";
     let color = "success";
@@ -94,7 +99,10 @@ export default function ResultsRoomPage(props) {
                     })
                 }
             </Stack>
-            <Button onClick={()=> props.setContext({page: "main"})}>
+            <Button onClick={()=> { 
+                context.setView("main")
+                push("/") 
+            }}>
                 Back to Lobby
             </Button>
         </Stack>
