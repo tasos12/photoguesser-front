@@ -4,8 +4,10 @@ import styles from '@/styles/Home.module.css'
 import { CssVarsProvider } from "@mui/joy/styles";
 import GameRoomView from '@/components/views/GameRoomView';
 import ResultsRoomView from '@/components/views/ResultsRoomView';
+import LoadingView from '@/components/views/LoadingView';
 import { extendedTheme } from '@/components/shared/ExtendedTheme';
 import { ViewContext } from '@/contexts/ViewContext';
+
 
 export default function Home() {
     const context = useContext(ViewContext)
@@ -41,7 +43,7 @@ export default function Home() {
     } else if (context.view === "results") {
         view = <ResultsRoomView/>
     } else {
-        view = <div>loading...</div>
+        view = <LoadingView />;
     }
 
     return (
@@ -51,6 +53,29 @@ export default function Home() {
             <meta
                 name="viewport"
                 content="width=device-width, initial-scale=1"
+            />
+            <meta
+                name="description"
+                content="
+                        Try the daily challenge! 
+                        Guess the year of 5 selected photos.
+                        "
+            />
+            <meta 
+                name="keywords" 
+                content="
+                        photoguesser daily,
+                        photo guesser daily,
+                        guess the year daily,
+                        guess the photo year daily,
+                        guess the year game daily,
+                        guess the photo game daily,
+                        guess the picture daily,
+                        guess the picture game daily,
+                        guess the year of a photograph daily,
+                        guess the year of a photo game daily,
+                        guess the year of a photograph game daily,
+                        "
             />
         </Head>
         <main className={styles.main}>
