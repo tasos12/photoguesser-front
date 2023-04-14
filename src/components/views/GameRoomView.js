@@ -59,12 +59,12 @@ export default function GameRoomView() {
                 "Content-Type": "application/json",
             },
         }).then((res) => {
-            
             setNext(false);
             return res.json();
         }).then((res) => {
-            if (res.status !== 200) throw new Error(res.message);
-            setImageSrc(process.env.NEXT_PUBLIC_IMAGE_URL + res.data.name + ".jpg");
+            if (res.status !== 200) 
+                throw new Error(res.message);
+            setImageSrc(process.env.NEXT_PUBLIC_IMAGE_URL + res.data.filename);
         }).catch((err) => {
             console.log(err);
         });
@@ -88,7 +88,7 @@ export default function GameRoomView() {
         ).then((res) => {
             if(res.status !== 200)
                 throw new Error(res.message);
-            setPhotoYear(res.data.year);
+            setPhotoYear(res.data.photo.year);
             setScore(res.data.score);
             setTotalScore((prevScore) => prevScore + res.data.score);
             setShowScore(true);
@@ -96,7 +96,7 @@ export default function GameRoomView() {
                 imageSrc: imageSrc,
                 score: res.data.score,
                 selectedYear: selectedYear,
-                year: res.data.year,
+                year: res.data.photo.year,
             }]);
         }).catch((err) => {
             console.log(err);
