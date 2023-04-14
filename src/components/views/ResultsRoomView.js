@@ -92,6 +92,9 @@ export default function ResultsRoomView() {
                                 sx={{py: 2}}
                             >
                                 <Divider/>
+                                <Typography component={"h3"} level="h3" sx={{ px: 2 }}>
+                                    {result.description}
+                                </Typography>
                                 <ImageContainer src={result.imageSrc} alt={result.imageSrc}/>
                                 <ScoreContainer score={result.score} year={result.year} selectedYear={result.selectedYear} />
                             </Stack>

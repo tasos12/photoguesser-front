@@ -97,6 +97,7 @@ export default function GameRoomView() {
                 score: res.data.score,
                 selectedYear: selectedYear,
                 year: res.data.photo.year,
+                description: res.data.photo.name,
             }]);
         }).catch((err) => {
             console.log(err);
