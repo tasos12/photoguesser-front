@@ -33,14 +33,12 @@ export default function MainView() {
             if(res.status !== 200) 
                 throw new Error(res.message);
 
-            context.setView("start");
-            context.setContext({ 
-                room: { 
-                    code: res.data.code, 
-                    photos: res.data.photoIDs,
-                    settings: res.data.settings,
-                }
+            context.setRoom({ 
+                code: res.data.code, 
+                photos: res.data.photoIDs,
+                settings: res.data.settings,
             }); 
+            context.setView("start");
         }).catch((err) => {
             setError("Could not join room.");
         });
