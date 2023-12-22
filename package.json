@@ -18,10 +18,10 @@
     "@next/font": "13.1.6",
     "@vercel/analytics": "^0.1.11",
     "eslint": "8.34.0",
-    "eslint-config-next": "13.1.6",
-    "next": "13.1.6",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "eslint-config-next": "^14.0.4",
+    "next": "^14.0.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-share": "^4.4.1"
   }
 }
