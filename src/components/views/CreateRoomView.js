@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import Button from "@mui/joy/Button";
 import Typography from "@mui/joy/Typography";
 import Stack from "@mui/joy/Stack";
@@ -12,16 +12,13 @@ import { ViewContext } from "@/contexts/ViewContext";
 
 export default function CreateRoomView() {
     const context = useContext(ViewContext);
-    const [create, setCreate] = useState(false);
     const [photoCount, setPhotoCount] = useState(10);
     const [timer, setTimer] = useState(30);
     const [error, setError] = useState("");
 
-    useEffect(() => {
-        if(!create) return;
-        
+    const handleCreate = () => {
         setError(<CircularProgress size="md" />);
-        setCreate(false);
+        
         const endpoint = "/rooms/create";
         fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
             method: "POST",
@@ -47,7 +44,7 @@ export default function CreateRoomView() {
         }).catch((err) => {
             setError("Could not create room.");
         });
-    }, [create, photoCount, timer, context]);
+    };
 
     return (
         <Stack
@@ -106,7 +103,7 @@ export default function CreateRoomView() {
                     sx={{ maxWidth: "400px", width: "90%" }}
                 />
             </Stack>
-            <Button onClick={() => setCreate(true)} size="lg" sx={{ m: 10 }}>
+            <Button onClick={handleCreate} size="lg" sx={{ m: 10 }}>
                 Create Room
             </Button>
             <Typography

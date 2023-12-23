@@ -19,8 +19,6 @@ export default function GameRoomView() {
 
     const [timer, setTimer] = useState(initialTimer);
     const [index, setIndex] = useState(0);
-    const [submit, setSubmit] = useState(false);
-    const [next, setNext] = useState(true);
     const [imageSrc, setImageSrc] = useState("");
     const [selectedYear, setSelectedYear] = useState(1960);
     const [showScore, setShowScore] = useState(false);
@@ -45,13 +43,20 @@ export default function GameRoomView() {
     }, [timer, disabledControls]);
 
     useEffect(() => {
-        if (!next) return;
         if (index === photos.length) {
             context.setView("results");
             context.setTotalScore(totalScore);
             context.setResults(results);
         }
+
+        setSelectedYear(1960);
         setDisabledControls(true);
+        setShowScore(false);
+        setTimer(initialTimer);
+        getNextRequest();
+    }, [index]);
+
+    const getNextRequest = () => {        
         const endpoint = "/photos/getPhoto?id=" + photos[index];
         fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
             method: "GET",
@@ -59,7 +64,6 @@ export default function GameRoomView() {
                 "Content-Type": "application/json",
             },
         }).then((res) => {
-            setNext(false);
             return res.json();
         }).then((res) => {
             if (res.status !== 200) 
@@ -68,11 +72,9 @@ export default function GameRoomView() {
         }).catch((err) => {
             console.log(err);
         });
-    }, [photos, totalScore, results, index, next, context]);
+    };
 
-    useEffect(() => {
-        if (!submit) return;
-
+    const getScoreRequest = () => {
         const idParam = "id=" + photos[index];
         const yearParam = "year=" + selectedYear;
         const endpoint = "/photos/getScore?" + idParam + "&" + yearParam;
@@ -82,10 +84,8 @@ export default function GameRoomView() {
                 "Content-Type": "application/json",
             },
         }).then((res) => {
-            setSubmit(false);
             return res.json()
-        }
-        ).then((res) => {
+        }).then((res) => {
             if(res.status !== 200)
                 throw new Error(res.message);
             setPhotoYear(res.data.photo.year);
@@ -102,22 +102,16 @@ export default function GameRoomView() {
         }).catch((err) => {
             console.log(err);
         });
-    }, [photos, index, imageSrc, selectedYear, submit])
+    };
 
     const handleSubmitClick = () => {
         setDisabledControls(true);
-        setSubmit(true);
+        getScoreRequest();
     }
 
     const handleNextClick = () => {
         setIndex((prevIndex) => prevIndex + 1);
-        setSelectedYear(1960);
-        setDisabledControls(false);
-        setShowScore(false);
-        setTimer(initialTimer);
-        setNext(true);
-    }
-
+    };
 
     return (
         <Stack
