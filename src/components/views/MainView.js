@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Button from "@mui/joy/Button";
@@ -11,16 +11,17 @@ import { ViewContext } from "@/contexts/ViewContext";
 
 export default function MainView() {
     const context = useContext(ViewContext);
-    const [join, setJoin] = useState(false);
-    const [daily, setDaily] = useState(false);
+    const { push } = useRouter();
     const [roomCode, setRoomCode] = useState("");
     const [error, setError] = useState("");
 
-    useEffect(() => {
-        if(!join) return;
-        
-        setJoin(false);
+    const handleCreateClick = () => {
+        context.setView("create");
+    };
+
+    const handleJoinClick = () => {
         setError(<CircularProgress size="md" />);
+
         const endpoint = "/rooms/connect?code=" + roomCode;
         fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
             method: "GET",
@@ -42,15 +43,11 @@ export default function MainView() {
         }).catch((err) => {
             setError("Could not join room.");
         });
+    };
 
-    }, [join, roomCode, context]);
-
-    const { push } = useRouter();
-    useEffect(() => {
-        if(!daily) return;
-        setDaily(false);
+    const handleDailyClick = () => {
         push("/daily");
-    }, [daily, push, context]);
+    };
 
     return (
         <Stack
@@ -91,7 +88,7 @@ export default function MainView() {
                 <Button                
                     component={"h3"}
                     color="info"
-                    onClick={() => setDaily(true)}
+                    onClick={handleDailyClick}
                     size="lg"
                     sx={{ flex: 0.5 }}
                 >
@@ -100,7 +97,7 @@ export default function MainView() {
                 <Button
                     component={"h3"}
                     color="primary"
-                    onClick={() => context.setView("create")}
+                    onClick={handleCreateClick}
                     size="lg"
                     sx={{ flex: 0.5 }}
                 >
@@ -119,7 +116,7 @@ export default function MainView() {
                     <Button
                         component={"h3"}
                         sx={{ px: 2 }}
-                        onClick={() => setJoin(true)}
+                        onClick={handleJoinClick}
                         variant="plain"
                         size="lg"
                     >
