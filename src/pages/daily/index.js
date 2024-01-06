@@ -2,8 +2,8 @@ import Head from 'next/head'
 import { useState, useContext, useEffect } from 'react';
 import styles from '@/styles/Home.module.css'
 import { CssVarsProvider } from "@mui/joy/styles";
-import GameRoomView from '@/components/views/GameRoomView';
-import ResultsRoomView from '@/components/views/ResultsRoomView';
+import GameRoomView from '@/components/views/daily/GameRoomView';
+import ResultsRoomView from '@/components/views/daily/ResultsRoomView';
 import LoadingView from '@/components/views/LoadingView';
 import { extendedTheme } from '@/components/shared/ExtendedTheme';
 import { ViewContext } from '@/contexts/ViewContext';

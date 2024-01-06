@@ -6,6 +6,7 @@ export default function ViewProvider ({ children }) {
 
     const [view , setView] = useState("main");
     const [room, setRoom] = useState({});
+    const [player, setPlayer] = useState({});
     const [totalScore, setTotalScore] = useState(0);
     const [results, setResults] = useState([]);
 
@@ -14,6 +15,7 @@ export default function ViewProvider ({ children }) {
             value={{
                 view, setView,
                 room, setRoom,
+                player, setPlayer,
                 totalScore, setTotalScore,
                 results, setResults,
             }}
