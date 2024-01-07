@@ -15,7 +15,6 @@
     "@mui/icons-material": "^5.11.9",
     "@mui/joy": "^5.0.0-alpha.68",
     "@mui/material": "^5.11.10",
-    "@next/font": "13.1.6",
     "@vercel/analytics": "^0.1.11",
     "eslint": "8.34.0",
     "eslint-config-next": "^14.0.4",
