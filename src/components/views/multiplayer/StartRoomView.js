@@ -45,18 +45,15 @@ export default function StartRoomView() {
         }).then((res) => {
             return res.json();
         }).then((res) => {
-            if(res.status !== 200)
-                throw new Error(res.message);
-
+            if(res.status !== 200) {
+                setError(res.message);
+                return;
+            }
             //addd code here
-            context.setRoom({ 
-                code: res.data.code, 
-                photos: res.data.photoIDs,
-                settings: res.data.settings,
-            }); 
+            context.setPlayer(res.data); 
             context.setView("multiplayer");
         }).catch((err) => {
-            setError(err);
+            setError("Could not join room.");
         });
     }
 
@@ -148,7 +145,7 @@ export default function StartRoomView() {
             </Stack>
 
             <Typography
-                component={"h4"}
+                component={"div"}
                 level="h4"
                 sx={{ color: "red", fontWeight: 700, height: "40px" }}
             >

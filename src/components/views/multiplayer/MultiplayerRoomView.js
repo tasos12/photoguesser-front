@@ -8,11 +8,15 @@ import ImageContainer from "@/components/shared/ImageContainer";
 import Chip from "@mui/joy/Chip";
 import { ViewContext } from "@/contexts/ViewContext";
 
+
+
 export default function MultiplayerRoomView() {
     const context = useContext(ViewContext);
 
     const initialTimer = context.room.settings.timer;
     const photos = context.room.photos;
+    const playerId = context.player.id;
+    const roomId = context.room.id;
     
     const startDate = 1900;
     const endDate = 2022;
@@ -27,6 +31,103 @@ export default function MultiplayerRoomView() {
     const [totalScore, setTotalScore] = useState(0);
     const [results, setResults] = useState([]);
     const [disabledControls, setDisabledControls] = useState(true);
+
+    useEffect(() => {
+        getNextPhotoRequest();
+    }, []);
+
+    useEffect(() => {
+        if (index === photos.length) {
+            context.setView("results");
+            context.setTotalScore(totalScore);
+            context.setResults(results);
+        }
+
+        setSelectedYear(1960);
+        setDisabledControls(true);
+        setShowScore(false);
+        setTimer(initialTimer);
+        getNextPhotoRequest();
+    }, [index]);
+
+    useEffect(() => {
+        if (timer === 0) {
+            handleSubmitClick();
+            return;
+        }
+        if(disabledControls)
+            return;
+
+        const interval = setInterval(() => {
+            setTimer((prevTimer) => prevTimer - 1);
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [timer, disabledControls]);
+
+
+    const getNextPhotoRequest = () => {        
+        const endpoint = "/photos/getPhoto?id=" + photos[index];
+        fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then((res) => {
+            return res.json();
+        }).then((res) => {
+            if (res.status !== 200) 
+                throw new Error(res.message);
+            setImageSrc(process.env.NEXT_PUBLIC_IMAGE_URL + res.data.filename);
+        }).catch((err) => {
+            console.log(err);
+        });
+    };
+
+    const submitScoreRequest = () => {
+        const endpoint = "/rooms/submit";
+        fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                playerId: playerId,
+                roomId: roomId,
+                photoId: photos[index],
+                year: selectedYear,
+            }),
+        }).then((res) => {
+            return res.json();
+        }).then((res) => {
+            if (res.status !== 200) 
+                throw new Error(res.message);
+            
+            setScore(res.data.photoScore);
+            setTotalScore(res.data.playerTotalScore);
+            setPhotoYear(res.data.photoYear);
+            setSelectedYear(res.data.selectedYear);
+            setResults((prevResults) => [...prevResults, {
+                imageSrc: imageSrc,
+                score: res.data.photoScore,
+                selectedYear: selectedYear,
+                year: photoYear,
+                description: res.data.photoName,
+            }]);
+            context.setTotalScore(res.data.playerTotalScore);
+            setShowScore(true);
+        }).catch((err) => {
+            console.log(err);
+        });
+    };
+
+    const handleSubmitClick = () => {
+        setDisabledControls(true);
+        submitScoreRequest();
+    };
+
+    const handleNextClick = () => {
+        setIndex(index + 1);
+    };
 
     return (
         <Stack

@@ -26,8 +26,6 @@ export default function Home() {
         view =  <CreateRoomView/>
     } else if (context.view === "start") {
         view = <StartRoomView/>
-    } else if (context.view === "game") { //Maybee remove after update
-        view = <GameRoomView/>
     } else if (context.view === "results") {
         view = <ResultsRoomView/>
     } else if (context.view === "multiplayer") {
