@@ -88,7 +88,7 @@ export default function MainView() {
             >
                 <Button                
                     component={"h3"}
-                    color="info"
+                    color="warning"
                     onClick={handleDailyClick}
                     size="lg"
                     sx={{ flex: 0.5 }}

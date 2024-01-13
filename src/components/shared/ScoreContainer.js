@@ -15,6 +15,7 @@ export default function ScoreContainer(props) {
             <div style={{ width: "100%", textAlign: "center" }}>
                 <Chip
                     color={color}
+                    variant="solid"
                     sx={{
                         fontSize: "1.2rem",
                     }}
