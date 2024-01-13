@@ -1,34 +1,49 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
+
 import Button from "@mui/joy/Button";
 import Stack from "@mui/joy/Stack";
 import Typography from "@mui/joy/Typography";
 import Divider from "@mui/joy/Divider";
 import Chip from "@mui/joy/Chip";
+import Table from "@mui/joy/Table";
+
 import ScoreContainer from "@/components/shared/ScoreContainer";
 import ImageContainer from "@/components/shared/ImageContainer";
 import CustomCircularProgress from "@/components/shared/CustomCircularProgress";
 import { ViewContext } from "@/contexts/ViewContext";
 
+import { getRoomPlayersTotalScore } from "@/components/api/PlayerService";
+import { calculatePerformanceAndColor } from "@/components/shared/Utils";
+
 export default function ResultsRoomView() {
+    const [players, setPlayers] = useState([]);
     const { push } = useRouter();
     const context = useContext(ViewContext)
     const results = context.results;
     const totalScore = context.totalScore;
     const maxTotalScore = context.room.settings.photoCount * 100
+
+    useEffect(() => {
+        getRoomPlayersTotalScore(context.room.id).then((players) => {
+            setPlayers(players);
+        }).catch((err) => {
+            console.log(err);
+        });
+    }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getRoomPlayersTotalScore(context.room.id).then((players) => {
+                setPlayers(players);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
     
-    let performance = "Excellent";
-    let color = "success";
-    if (totalScore/maxTotalScore < 0.33) {
-        performance = "Poor";
-        color = "danger";
-    } else if (totalScore/maxTotalScore < 0.66) {
-        performance = "Average";
-        color = "warning";
-    } else if (totalScore/maxTotalScore < 1) {
-        performance = "Very good";
-        color = "success";
-    }
+    const [performance, performanceColor] = calculatePerformanceAndColor(totalScore, maxTotalScore);
 
     return (
         <Stack direction="column" alignItems="center" spacing={2} sx={{pb: 5}}>
@@ -43,7 +58,7 @@ export default function ResultsRoomView() {
                 <CustomCircularProgress
                     reverse={false}
                     value={totalScore/maxTotalScore * 100}
-                    color={color}
+                    color={performanceColor}
                     style={{
                         fontSize: "1.5rem",
                         "--CircularProgress-size": "156px",
@@ -67,13 +82,58 @@ export default function ResultsRoomView() {
                     </Typography>
                     <Chip
                         component={"h5"}
-                        variant="plain"
-                        color={color}
+                        variant="solid"
+                        color={performanceColor}
                         sx={{ textAlign: "center", fontWeight: 700, fontSize: "28px" }}
                     >
                         {performance}
                     </Chip>
                 </Stack>
+            </Stack>
+            <Divider />
+            <Typography
+                component={"h2"}
+                level="h2"
+                sx={{ textAlign: "center" }}
+            >
+                Scoreboard
+            </Typography>
+            <Stack 
+                direction="column" 
+                alignItems="center" 
+                spacing={3} 
+                sx={{ height: "280px", overflow: 'auto', borderRadius: "10px" }}
+            >
+                <Table stickyHeader>
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Player</th>
+                            <th>TotalScore</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        players.map((player, index) => {
+                            let color = "";
+                            if (index === 0) {
+                                color = "rgba(255,215,0, 0.5)";
+                            } else if (index === 1) {
+                                color = "rgba(192,192,192,0.5)";
+                            } else if (index === 2) {
+                                color = "rgba(205,127,50, 0.5)";
+                            }
+                            return (
+                                <tr key={index} style={{ backgroundColor: color}}>
+                                    <td>{index+1}</td>
+                                    <td>{player.name}</td>
+                                    <td>{player.score}</td>
+                                </tr>
+                            );
+                        })
+                    }
+                    </tbody>
+                </Table>
             </Stack>
             <Stack
                 component="section"

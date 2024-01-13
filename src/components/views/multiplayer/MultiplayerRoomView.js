@@ -1,14 +1,21 @@
 import { Fragment, useContext, useEffect, useState } from "react";
+
 import Stack from "@mui/joy/Stack";
+import Sheet from "@mui/joy/Sheet";
 import Button from "@mui/joy/Button";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Slider from "@mui/joy/Slider";
+import List from "@mui/joy/List";
+import ListItem from "@mui/joy/ListItem";
+import ListItemContent from "@mui/joy/ListItemContent";
+import ListItemDecorator from "@mui/joy/ListItemDecorator";
+import SportsScore from '@mui/icons-material/SportsScore'
+import Radar from '@mui/icons-material/Radar'
+
 import ScoreContainer from "@/components/shared/ScoreContainer";
 import ImageContainer from "@/components/shared/ImageContainer";
 import Chip from "@mui/joy/Chip";
 import { ViewContext } from "@/contexts/ViewContext";
-
-
 
 export default function MultiplayerRoomView() {
     const context = useContext(ViewContext);
@@ -30,10 +37,19 @@ export default function MultiplayerRoomView() {
     const [score, setScore] = useState(0);
     const [totalScore, setTotalScore] = useState(0);
     const [results, setResults] = useState([]);
+    const [players, setPlayers] = useState([]);
     const [disabledControls, setDisabledControls] = useState(true);
 
     useEffect(() => {
         getNextPhotoRequest();
+        getRoomPlayersTotalScoreRequest();
+    }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getRoomPlayersTotalScoreRequest();
+        }, 5000);
+        return () => clearInterval(interval);
     }, []);
 
     useEffect(() => {
@@ -64,6 +80,29 @@ export default function MultiplayerRoomView() {
         return () => clearInterval(interval);
     }, [timer, disabledControls]);
 
+    async function getRoomPlayersTotalScoreRequest() {
+        const endpoint = "/player/getPlayers?id=" + roomId;
+        await fetch(process.env.NEXT_PUBLIC_API_URL + endpoint, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then((res) => {
+            return res.json();
+        }).then((res) => {
+            if (res.status !== 200 || res.data == []) 
+                throw new Error(res.message);
+            setPlayers([]);
+            res.data.forEach((player) => {
+                setPlayers((prevPlayers) => [...prevPlayers, {
+                    name: player.name,
+                    score: player.totalScore,
+                }]);
+            });
+        }).catch((err) => {
+            console.log(err);
+        });
+    };
 
     const getNextPhotoRequest = () => {        
         const endpoint = "/photos/getPhoto?id=" + photos[index];
@@ -139,12 +178,33 @@ export default function MultiplayerRoomView() {
             <Stack
                 direction="row"
                 alignItems="center"
-                justifyContent="space-around"
+                justifyContent="space-between"
                 width="100%"
             >
-                <Chip size="lg" color="neutral">
-                    {totalScore}
-                </Chip>
+                <Stack
+                    direction="column"
+                    alignItems="flex-start"
+                    width="100%"
+                    spacing={0.5}
+                >
+                    <Chip 
+                        size="lg" 
+                        color="neutral"
+                        startDecorator={
+                            <SportsScore />
+                        }>
+                        {index + 1} / {photos.length}
+                    </Chip>
+                    <Chip 
+                        size="lg" 
+                        color="neutral"
+                        startDecorator={
+                            <Radar />
+                        }>
+                        {totalScore}
+                    </Chip>
+                </Stack>
+
                 <CircularProgress
                     determinate
                     value={(timer / initialTimer) * 100}
@@ -157,9 +217,46 @@ export default function MultiplayerRoomView() {
                 >
                     {timer}
                 </CircularProgress>
-                <Chip size="lg" color="neutral">
-                    {index + 1} / {photos.length}
-                </Chip>
+                <Stack                   
+                    direction="column"
+                    alignItems="end"
+                    width="100%"
+                >
+                    <Sheet 
+                        sx={{
+                            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                            borderRadius: 'sm', 
+                            overflowX: 'hidden',
+                            overflowY: 'auto',
+                            maxHeight: '80px',
+                            width: '80%',
+                        }}>
+                    <List>
+                        {players.map((player, index) => {
+                            return (
+                                <ListItem 
+                                    key={player.name}
+                                    sx={{ 
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <ListItemDecorator 
+                                        sx={{
+                                            width: '5em', 
+                                            textOverflow: 'hidden', 
+                                            overflow: 'hidden',
+                                        }}>
+                                            {player.name}
+                                    </ListItemDecorator>
+                                    <ListItemContent sx={{paddingLeft: '0.2em', fontWeight: 'bold'}}>
+                                        {player.score}
+                                    </ListItemContent>
+                                </ListItem>
+                            );
+                        })}
+                    </List>
+                    </Sheet>
+                </Stack>
             </Stack>
             
             <ImageContainer 
