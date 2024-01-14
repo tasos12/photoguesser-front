@@ -14,7 +14,7 @@ import CustomCircularProgress from "@/components/shared/CustomCircularProgress";
 import { ViewContext } from "@/contexts/ViewContext";
 
 import { getRoomPlayersTotalScore } from "@/components/api/PlayerService";
-import { calculatePerformanceAndColor } from "@/components/shared/Utils";
+import { calculatePerformanceAndColor, calculatePosition } from "@/components/shared/Utils";
 
 export default function ResultsRoomView() {
     const [players, setPlayers] = useState([]);
@@ -105,7 +105,7 @@ export default function ResultsRoomView() {
                 sx={{ height: "280px", overflow: 'auto', borderRadius: "10px" }}
             >
                 <Table stickyHeader>
-                    <thead>
+                    <thead style={{ "--TableCell-headBackground": "rgba(220, 220, 200, 1)" }}>
                         <tr>
                             <th>Position</th>
                             <th>Player</th>
@@ -115,17 +115,9 @@ export default function ResultsRoomView() {
                     <tbody>
                     {
                         players.map((player, index) => {
-                            let color = "";
-                            if (index === 0) {
-                                color = "rgba(255,215,0, 0.5)";
-                            } else if (index === 1) {
-                                color = "rgba(192,192,192,0.5)";
-                            } else if (index === 2) {
-                                color = "rgba(205,127,50, 0.5)";
-                            }
                             return (
-                                <tr key={index} style={{ backgroundColor: color}}>
-                                    <td>{index+1}</td>
+                                <tr key={index}>
+                                    <td>{calculatePosition(index)}</td>
                                     <td>{player.name}</td>
                                     <td>{player.score}</td>
                                 </tr>

@@ -8,7 +8,7 @@ import Slider from "@mui/joy/Slider";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemContent from "@mui/joy/ListItemContent";
-import ListItemDecorator from "@mui/joy/ListItemDecorator";
+
 import SportsScore from '@mui/icons-material/SportsScore'
 import Radar from '@mui/icons-material/Radar'
 
@@ -16,6 +16,7 @@ import ScoreContainer from "@/components/shared/ScoreContainer";
 import ImageContainer from "@/components/shared/ImageContainer";
 import Chip from "@mui/joy/Chip";
 import { ViewContext } from "@/contexts/ViewContext";
+import { calculatePosition } from "@/components/shared/Utils";
 
 export default function MultiplayerRoomView() {
     const context = useContext(ViewContext);
@@ -224,33 +225,41 @@ export default function MultiplayerRoomView() {
                 >
                     <Sheet 
                         sx={{
-                            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                            backgroundColor: 'rgba(0, 0, 0, 0.00)',
                             borderRadius: 'sm', 
                             overflowX: 'hidden',
                             overflowY: 'auto',
                             maxHeight: '80px',
                             width: '80%',
                         }}>
-                    <List>
-                        {players.map((player, index) => {
+                    <List sx={{"--ListItem-minHeight": 0, "--ListItem-paddingY": "3px"}}>
+                        {players.map((player, index) => {                         
                             return (
-                                <ListItem 
-                                    key={player.name}
-                                    sx={{ 
-                                        alignItems: 'center',
-                                    }}
-                                >
-                                    <ListItemDecorator 
+                                <ListItem key={player.name}>
+                                    <Chip 
+                                        size="sm"
+                                        variant="soft"
+                                        color="neutral"
+                                        startDecorator={
+                                            <span style={{fontWeight: 700}}>
+                                                {calculatePosition(index)}
+                                            </span>
+                                        }
+                                        endDecorator={
+                                            <span style={{fontWeight: 700}}>
+                                                {player.score}
+                                            </span>
+                                        }
+                                    >
+                                    <ListItemContent 
                                         sx={{
-                                            width: '5em', 
+                                            width: '3em', 
                                             textOverflow: 'hidden', 
                                             overflow: 'hidden',
                                         }}>
                                             {player.name}
-                                    </ListItemDecorator>
-                                    <ListItemContent sx={{paddingLeft: '0.2em', fontWeight: 'bold'}}>
-                                        {player.score}
                                     </ListItemContent>
+                                    </Chip>
                                 </ListItem>
                             );
                         })}
