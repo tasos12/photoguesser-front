@@ -35,6 +35,7 @@ export default function MainView() {
                 throw new Error(res.message);
 
             context.setRoom({ 
+                id: res.data.id,
                 code: res.data.code, 
                 photos: res.data.photoIDs,
                 settings: res.data.settings,
@@ -87,7 +88,7 @@ export default function MainView() {
             >
                 <Button                
                     component={"h3"}
-                    color="info"
+                    color="warning"
                     onClick={handleDailyClick}
                     size="lg"
                     sx={{ flex: 0.5 }}

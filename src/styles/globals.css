@@ -5,6 +5,15 @@ body {
   z-index: -5;
 }
 
+::-webkit-scrollbar{
+  width: 0.4em;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,.1);
+  border-radius: 5px;
+}
+
 @media screen and (min-width: 768px) {
   .responsive-image {
     height: 60vh;

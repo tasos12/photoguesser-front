@@ -3,10 +3,11 @@ import { useContext, useState, useEffect } from 'react';
 import styles from '@/styles/Home.module.css'
 import { CssVarsProvider } from "@mui/joy/styles";
 import MainView from "@/components/views/MainView";
-import CreateRoomView from '@/components/views/CreateRoomView';
-import StartRoomView from '@/components/views/StartRoomView';
-import GameRoomView from '@/components/views/GameRoomView';
-import ResultsRoomView from '@/components/views/ResultsRoomView';
+import CreateRoomView from '@/components/views/multiplayer/CreateRoomView';
+import StartRoomView from '@/components/views/multiplayer/StartRoomView';
+import GameRoomView from '@/components/views/daily/GameRoomView';
+import MultiplayerRoomView from '@/components/views/multiplayer/MultiplayerRoomView';
+import ResultsRoomView from '@/components/views/multiplayer/ResultsRoomView';
 import { extendedTheme } from '@/components/shared/ExtendedTheme';
 import { ViewContext } from '@/contexts/ViewContext';
 
@@ -25,10 +26,10 @@ export default function Home() {
         view =  <CreateRoomView/>
     } else if (context.view === "start") {
         view = <StartRoomView/>
-    } else if (context.view === "game") {
-        view = <GameRoomView/>
     } else if (context.view === "results") {
         view = <ResultsRoomView/>
+    } else if (context.view === "multiplayer") {
+        view = <MultiplayerRoomView/>
     }
     
     return (
