@@ -35,12 +35,13 @@ export default function CreateRoomView() {
             if(res.status !== 200)
                 throw new Error(res.message);
 
-            context.setView("start");
             context.setRoom({ 
+                id: res.data.id,
                 code: res.data.code, 
                 photos: res.data.photoIDs,
                 settings: res.data.settings,
             }); 
+            context.setView("start");
         }).catch((err) => {
             setError("Could not create room.");
         });
