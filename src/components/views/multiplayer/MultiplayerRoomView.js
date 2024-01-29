@@ -149,8 +149,8 @@ export default function MultiplayerRoomView() {
             setResults((prevResults) => [...prevResults, {
                 imageSrc: imageSrc,
                 score: res.data.photoScore,
-                selectedYear: selectedYear,
-                year: photoYear,
+                selectedYear: res.data.selectedYear,
+                year: res.data.photoYear,
                 description: res.data.photoName,
             }]);
             context.setTotalScore(res.data.playerTotalScore);
