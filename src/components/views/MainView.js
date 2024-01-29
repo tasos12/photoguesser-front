@@ -8,6 +8,7 @@ import Typography from "@mui/joy/Typography";
 import Footer from "@/components/shared/Footer";
 import CircularProgress from "@mui/joy/CircularProgress";
 import { ViewContext } from "@/contexts/ViewContext";
+import { sendGAEvent } from '@next/third-parties/google'
 
 export default function MainView() {
     const context = useContext(ViewContext);
@@ -16,6 +17,11 @@ export default function MainView() {
     const [error, setError] = useState("");
 
     const handleCreateClick = () => {
+        sendGAEvent({
+            view: 'home',
+            action: 'create_room',
+            category: 'room',
+        })
         context.setView("create");
     };
 
@@ -33,7 +39,12 @@ export default function MainView() {
         }).then((res) => {
             if(res.status !== 200) 
                 throw new Error(res.message);
-
+            sendGAEvent({
+                view: 'home',
+                action: 'join_room',
+                category: 'room',
+                value: res.data.code
+            });
             context.setRoom({ 
                 id: res.data.id,
                 code: res.data.code, 
@@ -42,11 +53,22 @@ export default function MainView() {
             }); 
             context.setView("start");
         }).catch((err) => {
+            sendGAEvent({
+                view: 'home',
+                action: 'join_room',
+                category: 'room',
+                value: roomCode,
+            });
             setError("Could not join room.");
         });
     };
 
     const handleDailyClick = () => {
+        sendGAEvent({
+            view: 'home',
+            action: 'daily_challenge',
+            category: 'room',
+        });
         push("/daily");
     };
 
