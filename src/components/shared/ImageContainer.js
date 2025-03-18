@@ -26,6 +26,7 @@ export default function ImageContainer(props) {
                 src={props.src}
                 alt={props.alt}
                 fill={true}
+                unoptimized={true}
             />}
         </Stack>
     )
